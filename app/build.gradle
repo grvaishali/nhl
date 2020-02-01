@@ -93,6 +93,10 @@ dependencies {
     // Timber
     implementation "com.jakewharton.timber:timber:$project.timberVersion"
 
+    //Sharp
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.pixplicity.sharp:library:1.1.0'
+
     //others
     def version = "1.0.0"
     api "androidx.appcompat:appcompat:$version"

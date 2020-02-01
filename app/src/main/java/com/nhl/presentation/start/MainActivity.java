@@ -2,44 +2,36 @@ package com.nhl.presentation.start;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.navigation.NavigationView;
-import com.nhl.R;
-import com.nhl.data.rest.remote.RestApi;
-import com.nhl.databinding.ActivityMainBindingImpl;
-import com.nhl.domain.model.factory.TeamViewModel;
-import com.nhl.domain.services.impl.TeamService;
-import com.nhl.model.team.Team;
-import com.nhl.model.team.Teams;
-import com.nhl.presentation.AbstractNHLActivity;
-import com.nhl.presentation.adapter.TeamAdapter;
-import com.nhl.presentation.team.TeamActivity;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Menu;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+import com.nhl.R;
+import com.nhl.databinding.ActivityMainBindingImpl;
+import com.nhl.domain.model.factory.TeamViewModel;
+import com.nhl.model.team.Teams;
+import com.nhl.model.team.roster.Roster;
+import com.nhl.model.team.roster.TeamRoster;
+import com.nhl.presentation.AbstractNHLActivity;
+import com.nhl.presentation.adapter.TeamAdapter;
+import com.nhl.presentation.adapter.TeamPlayersAdapter;
+import com.nhl.presentation.team.TeamActivity;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -50,18 +42,37 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
 
     private AppBarConfiguration mAppBarConfiguration;
     private LinearLayoutManager layoutManager;
-    ArrayList<Team>  team;
+
     @BindView(R.id.teamView)
     RecyclerView teamView;
+
+    @BindView(R.id.teamPlayers)
+    RecyclerView teamPlayerView;
+
+    @Inject
+    TeamViewModel teamViewModel;
+
+    @Inject
+    @Named("TeamViewModel")
+    ViewModelProvider.Factory factory;
+
+    @Override
+    public TeamViewModel getViewModel() {
+        teamViewModel = ViewModelProviders.of(this, factory).get(TeamViewModel.class);
+        return teamViewModel;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        bind();
+        getViewModel();
+
         ButterKnife.bind(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,20 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
         teamView = (RecyclerView) findViewById(R.id.teamView);
         teamView.setHasFixedSize(true);
-        getTeamView();
+        getTeams();
+        getTeamPlayers();
     }
 
-    private void getTeamView() {
-       team = new ArrayList<>();
-        Team teamData = new Team();
-        teamData.setName("NHL");
-        team.add(teamData);
-        layoutManager = new LinearLayoutManager(this);
-        teamView.setLayoutManager(layoutManager);
-        teamView.setItemAnimator(new DefaultItemAnimator());
-        TeamAdapter teamAdapter = new TeamAdapter(team, this);
-        teamView.setAdapter(teamAdapter);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -119,5 +120,73 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    Call<Teams> teams;
+
+    public void getTeams() {
+
+        teams = teamViewModel.teamService.getTeam();
+        teams.enqueue(new Callback<Teams>() {
+            @Override
+            public void onResponse
+                    (Call<Teams> call, Response<Teams> response) {
+                if (response.isSuccessful()) {
+
+                    Teams teamsResponse;
+                    teamsResponse =  response.body();
+                    layoutManager = new LinearLayoutManager(MainActivity.this);
+                    teamView.setLayoutManager(layoutManager);
+                    teamView.setItemAnimator(new DefaultItemAnimator());
+                    TeamAdapter teamAdapter = new TeamAdapter(teamsResponse.getTeams(), MainActivity.this);
+                    teamView.setAdapter(teamAdapter);
+
+
+                } else {
+                    // error response, no access to resource?
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Teams> call, Throwable t) {
+
+            }
+        });
+    }
+
+    Call<TeamRoster> teamRosterCall;
+
+    public void getTeamPlayers() {
+        teamRosterCall = teamViewModel.teamService.getTeamRoster(1);
+
+        teamRosterCall.enqueue(new Callback<TeamRoster>() {
+            @Override
+            public void onResponse
+                    (Call<TeamRoster> call, Response<TeamRoster> response) {
+                if (response.isSuccessful()) {
+                    TeamRoster teamRoster = response.body();;
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+                    teamPlayerView.setLayoutManager(layoutManager);
+                    teamPlayerView.setItemAnimator(new DefaultItemAnimator());
+                    TeamPlayersAdapter teamPlayersAdapter = new TeamPlayersAdapter(teamRoster.getRoster(), MainActivity.this);
+                    teamPlayerView.setAdapter(teamPlayersAdapter);
+
+
+                } else {
+                    Log.e("Team Players Call", response.errorBody().toString(), null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TeamRoster> call, Throwable t) {
+                Log.e("Team Players Call", t.getMessage(), t);
+            }
+
+        });
+    }
+
+    private void bind() {
+        ActivityMainBindingImpl binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding.setViewModel(teamViewModel);
+
+    }
 
 }

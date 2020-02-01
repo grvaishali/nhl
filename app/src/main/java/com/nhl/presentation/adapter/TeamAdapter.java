@@ -15,15 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nhl.R;
 import com.nhl.model.team.Team;
-import com.nhl.model.team.Teams;
+import com.nhl.presentation.ImageUtil;
+import com.nhl.presentation.team.TeamActivity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolder> {
-    private ArrayList<Team> teams;
+    private List<Team> teams;
     private Context context;
 
     @NonNull
@@ -44,20 +45,17 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolde
         textViewDescription.setText(teams.get(listPosition).getName());
 
 
-//        holder.parentCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, CategoriesActivity.class);
-//                intent.putExtra(ECatalogueConstants.BRAND, brandsList.get(listPosition).getName());
-//
-//                context.startActivity(intent);
-//
-//            }
-//        });
+        holder.parentCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TeamActivity.class);
+              //  intent.putExtra(ECatalogueConstants.BRAND, brandsList.get(listPosition).getName());
+                context.startActivity(intent);
+
+            }
+        });
         try {
-//            Glide.with(imageContext)
-//                    .load(String.valueOf(teamsList.get(listPosition).getImageUrl())).
-//                    into(imageViewIcon);
+            ImageUtil.fetchSvg(imageContext, ("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/"+teams.get(listPosition).getId())+".svg", imageViewIcon);
         } catch (Exception e) {
             Log.e("LoadBrandImage", e.getMessage(), e);
         }
@@ -75,7 +73,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolde
         TextView textViewDescription;
         @BindView(R.id.imageView)
         ImageView imageViewIcon;
-        @BindView(R.id.brand_card_view)
+        @BindView(R.id.team_card_view)
         CardView parentCardView;
 
         public TeamsViewHolder(View itemView) {
@@ -84,7 +82,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolde
         }
     }
 
-    public TeamAdapter(ArrayList<Team> teams, Context context) {
+    public TeamAdapter(List<Team> teams, Context context) {
         this.teams = teams;
         this.context = context;
     }

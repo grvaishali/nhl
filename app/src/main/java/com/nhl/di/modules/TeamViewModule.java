@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.nhl.domain.model.factory.TeamViewModel;
 import com.nhl.domain.model.factory.ViewModelProviderFactory;
 import com.nhl.domain.services.impl.TeamService;
-import com.nhl.domain.services.impl.TeamServiceImpl;
 
 import javax.inject.Named;
 

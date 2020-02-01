@@ -1,12 +1,13 @@
 package com.nhl.domain.services.impl;
 
-import com.nhl.model.team.Team;
 import com.nhl.model.team.Teams;
-
-import java.util.List;
+import com.nhl.model.team.people.People;
+import com.nhl.model.team.roster.TeamRoster;
 
 import retrofit2.Call;
 
 public interface TeamService {
-    public Call<Teams> getTeam();
+    Call<Teams> getTeam();
+    Call<TeamRoster> getTeamRoster(int teamId);
+    Call<People> getPeople(int personId);
 }
