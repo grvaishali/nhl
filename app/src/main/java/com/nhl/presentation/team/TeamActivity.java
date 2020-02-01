@@ -1,7 +1,6 @@
 package com.nhl.presentation.team;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;

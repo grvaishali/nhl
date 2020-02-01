@@ -93,5 +93,13 @@ dependencies {
     // Timber
     implementation "com.jakewharton.timber:timber:$project.timberVersion"
 
+    //others
+    def version = "1.0.0"
+    api "androidx.appcompat:appcompat:$version"
+    api "com.google.android.material:material:$version"
+    api "androidx.legacy:legacy-support-v4:$version"
+    api "androidx.cardview:cardview:$version"
+    api "androidx.recyclerview:recyclerview:$version"
+
 }
 

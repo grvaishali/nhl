@@ -25,20 +25,27 @@ import com.nhl.domain.services.impl.TeamService;
 import com.nhl.model.team.Team;
 import com.nhl.model.team.Teams;
 import com.nhl.presentation.AbstractNHLActivity;
+import com.nhl.presentation.adapter.TeamAdapter;
 import com.nhl.presentation.team.TeamActivity;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,26 +53,16 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
-//    @Inject
-//    TeamViewModel teamViewModel;
-//
-//    @Inject
-//    RestApi api;
-//
-//    @Inject
-//    ViewModelProvider.Factory factory;
-
-//    @Override
-//    public TeamViewModel getViewModel() {
-//        teamViewModel = ViewModelProviders.of(this, factory).get(TeamViewModel.class);
-//        return teamViewModel;
-//    }
+    private LinearLayoutManager layoutManager;
+    ArrayList<Team>  team;
+    @BindView(R.id.teamView)
+    RecyclerView teamView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -90,6 +87,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        teamView = (RecyclerView) findViewById(R.id.teamView);
+        teamView.setHasFixedSize(true);
+        getTeamView();
+    }
+
+    private void getTeamView() {
+       team = new ArrayList<>();
+        Team teamData = new Team();
+        teamData.setName("NHL");
+        team.add(teamData);
+        layoutManager = new LinearLayoutManager(this);
+        teamView.setLayoutManager(layoutManager);
+        teamView.setItemAnimator(new DefaultItemAnimator());
+        TeamAdapter teamAdapter = new TeamAdapter(team, this);
+        teamView.setAdapter(teamAdapter);
     }
 
     @Override
