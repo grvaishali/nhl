@@ -45,7 +45,7 @@ public class ImageUtil {
     }
 
     public static void fetchJpg(Context context, String url, final ImageView target) {
-        Glide.with(context)
+        GlideApp.with(context)
                 .load(url).
                 into(target);
     }

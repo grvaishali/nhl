@@ -1,7 +1,6 @@
 package com.nhl.presentation.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,18 +10,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nhl.R;
-import com.nhl.constants.NHLConstants;
 import com.nhl.model.team.Team;
 import com.nhl.presentation.ImageUtil;
-import com.nhl.presentation.navigation.ui.home.HomeFragment;
-import com.nhl.presentation.start.MainActivity;
-import com.nhl.presentation.team.TeamActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,8 +30,14 @@ import butterknife.ButterKnife;
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolder> {
     private List<Team> teams;
     private Context context;
+    public LiveData<Integer> position;
+    FragmentTransaction transaction;
+    ArrayList<String> nameList;
 
+    @Inject
+    public TeamAdapter() {
 
+    }
 
     @NonNull
     @Override
@@ -42,6 +45,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolde
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_teams, parent, false);
         TeamsViewHolder teamsViewHolder = new TeamsViewHolder(view);
+        nameList = new ArrayList<>();
         return teamsViewHolder;
     }
 
@@ -51,15 +55,16 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolde
         TextView textViewDescription = holder.textViewDescription;
         ImageView imageViewIcon = holder.imageViewIcon;
         CardView view = holder.parentCardView;
-        textViewDescription.setText(teams.get(listPosition).getName());
 
+        textViewDescription.setText(teams.get(listPosition).getName());
+        nameList.add(teams.get(listPosition).getName());
 
         holder.parentCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra(NHLConstants.TEAM_ID, teams.get(listPosition).getId());
-                context.startActivity(intent);
+
+
+                ((MutableLiveData<Integer>) position).setValue((teams.get(listPosition).getId()));
 
             }
         });
@@ -91,8 +96,17 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolde
         }
     }
 
-    public TeamAdapter(List<Team> teams, Context context) {
+    public TeamAdapter(List<Team> teams, LiveData<Integer> position, Context context) {
         this.teams = teams;
         this.context = context;
+        this.position = position;
+    }
+
+    public MutableLiveData<Integer> getPosition() {
+        return (MutableLiveData<Integer>) position;
+    }
+
+    public ArrayList getNameList(){
+        return nameList;
     }
 }

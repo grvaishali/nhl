@@ -12,9 +12,9 @@ import dagger.Provides;
 @Module
 public class AbstractNHLFragmentModule {
 
-    @Provides
-    @Named("Fragment")
-    ViewModelProvider.Factory provideAbstractCatalogueFragmentProvider() {
-        return (ViewModelProvider.Factory) new AbstractNHLFragment();
-    }
+//    @Provides
+//    @Named("Fragment")
+//    ViewModelProvider.Factory provideAbstractCatalogueFragmentProvider() {
+//        return (ViewModelProvider.Factory) new AbstractNHLFragment();
+//    }
 }

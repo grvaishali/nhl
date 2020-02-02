@@ -2,13 +2,17 @@ package com.nhl.presentation.start;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
@@ -23,15 +27,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nhl.R;
-import com.nhl.constants.NHLConstants;
 import com.nhl.databinding.ActivityMainBindingImpl;
 import com.nhl.domain.model.factory.TeamViewModel;
 import com.nhl.model.team.Teams;
-import com.nhl.model.team.roster.Roster;
-import com.nhl.model.team.roster.TeamRoster;
 import com.nhl.presentation.AbstractNHLActivity;
 import com.nhl.presentation.adapter.TeamAdapter;
-import com.nhl.presentation.adapter.TeamPlayersAdapter;
+import com.nhl.presentation.navigation.ui.home.HomeFragment;
 import com.nhl.presentation.team.TeamActivity;
 
 import javax.inject.Inject;
@@ -48,11 +49,11 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
     private AppBarConfiguration mAppBarConfiguration;
     private LinearLayoutManager layoutManager;
 
+    private LiveData<Integer> positionLiveData;
+
     @BindView(R.id.teamView)
     RecyclerView teamView;
 
-    @BindView(R.id.teamPlayers)
-    RecyclerView teamPlayerView;
 
     @Inject
     TeamViewModel teamViewModel;
@@ -77,6 +78,21 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
         getViewModel();
 
         ButterKnife.bind(this);
+
+        positionLiveData = new MutableLiveData<Integer>(Integer.valueOf(1));
+        positionLiveData.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                HomeFragment homeFragment = new HomeFragment(positionLiveData);
+                FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_home, homeFragment);
+                fragmentTransaction.commit();
+
+            }
+        });
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -91,8 +107,7 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
         });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
                 R.id.nav_tools, R.id.nav_share, R.id.nav_send)
@@ -102,7 +117,6 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        teamView = (RecyclerView) findViewById(R.id.teamView);
         teamView.setHasFixedSize(true);
         getTeams();
 
@@ -125,13 +139,13 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
 
     Call<Teams> teams;
 
+    public LiveData<String> getPosition() {
+        LiveData<String> stringLiveData = new MutableLiveData<String>(String.valueOf(position));
+        return stringLiveData;
+    }
+
     public void getTeams() {
 
-        if (getIntent().hasExtra(NHLConstants.TEAM_ID)) {
-            position = (int) getIntent().getSerializableExtra(NHLConstants.TEAM_ID);
-
-        }
-        getTeamPlayers(position);
 
         teams = teamViewModel.teamService.getTeam();
         teams.enqueue(new Callback<Teams>() {
@@ -145,7 +159,7 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
                     layoutManager = new LinearLayoutManager(MainActivity.this);
                     teamView.setLayoutManager(layoutManager);
                     teamView.setItemAnimator(new DefaultItemAnimator());
-                    TeamAdapter teamAdapter = new TeamAdapter(teamsResponse.getTeams(), MainActivity.this);
+                    TeamAdapter teamAdapter = new TeamAdapter(teamsResponse.getTeams(), positionLiveData, MainActivity.this);
                     teamView.setAdapter(teamAdapter);
 
 
@@ -161,37 +175,6 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
         });
     }
 
-    Call<TeamRoster> teamRosterCall;
-
-    public void getTeamPlayers(int position) {
-        teamRosterCall = teamViewModel.teamService.getTeamRoster(position);
-
-        teamRosterCall.enqueue(new Callback<TeamRoster>() {
-            @Override
-            public void onResponse
-                    (Call<TeamRoster> call, Response<TeamRoster> response) {
-                if (response.isSuccessful()) {
-                    TeamRoster teamRoster = response.body();
-                    ;
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-                    teamPlayerView.setLayoutManager(layoutManager);
-                    teamPlayerView.setItemAnimator(new DefaultItemAnimator());
-                    TeamPlayersAdapter teamPlayersAdapter = new TeamPlayersAdapter(teamRoster.getRoster(), MainActivity.this);
-                    teamPlayerView.setAdapter(teamPlayersAdapter);
-
-
-                } else {
-                    Log.e("Team Players Call", response.errorBody().toString(), null);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TeamRoster> call, Throwable t) {
-                Log.e("Team Players Call", t.getMessage(), t);
-            }
-
-        });
-    }
 
     private void bind() {
         ActivityMainBindingImpl binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
