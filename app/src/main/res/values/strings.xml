@@ -16,4 +16,6 @@
     <string name="image">Image</string>
     <string name="playerName">Player Name</string>
     <string name="teamPlayer_Position">Position</string>
+    <string name="countryName">Country Name</string>
+    <string name="flag_image">Flag</string>
 </resources>

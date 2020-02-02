@@ -1,6 +1,12 @@
 package com.nhl.model.team.people;
 
+import javax.inject.Inject;
+
 public class CurrentTeam {
+
+    @Inject
+    public CurrentTeam() {
+    }
 
     private Integer id;
 

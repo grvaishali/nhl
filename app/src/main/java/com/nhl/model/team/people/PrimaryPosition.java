@@ -1,7 +1,12 @@
 package com.nhl.model.team.people;
 
+import javax.inject.Inject;
+
 public class PrimaryPosition {
 
+    @Inject
+    public PrimaryPosition() {
+    }
 
     private String code;
 

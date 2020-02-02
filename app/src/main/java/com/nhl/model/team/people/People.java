@@ -1,7 +1,12 @@
 package com.nhl.model.team.people;
 
+import javax.inject.Inject;
+
 public class People {
 
+    @Inject
+    public People() {
+    }
 
     private Integer id;
 

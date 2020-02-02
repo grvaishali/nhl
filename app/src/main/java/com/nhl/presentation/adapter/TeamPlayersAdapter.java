@@ -1,6 +1,7 @@
 package com.nhl.presentation.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nhl.R;
 import com.nhl.model.team.roster.Roster;
 import com.nhl.presentation.ImageUtil;
+import com.nhl.presentation.team.TeamActivity;
 
 import java.util.List;
 
@@ -73,7 +75,14 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
             }
 
         }
+        holder.parentCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TeamActivity.class);
+                context.startActivity(intent);
 
+            }
+        });
 
 
     }

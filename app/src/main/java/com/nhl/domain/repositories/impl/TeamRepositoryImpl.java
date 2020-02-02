@@ -4,6 +4,7 @@ import com.nhl.data.rest.remote.RestApi;
 import com.nhl.domain.repositories.TeamRepository;
 import com.nhl.model.team.Teams;
 import com.nhl.model.team.people.People;
+import com.nhl.model.team.people.PeopleDetails;
 import com.nhl.model.team.roster.TeamRoster;
 
 import javax.inject.Inject;
@@ -36,7 +37,7 @@ public class TeamRepositoryImpl implements TeamRepository {
     }
 
     @Override
-    public Call<People> getPeople(int personId) {
+    public Call<PeopleDetails> getPeople(int personId) {
         return api.getPeople(personId);
     }
 }

@@ -3,6 +3,7 @@ package com.nhl.domain.services.impl;
 import com.nhl.domain.repositories.TeamRepository;
 import com.nhl.model.team.Teams;
 import com.nhl.model.team.people.People;
+import com.nhl.model.team.people.PeopleDetails;
 import com.nhl.model.team.roster.TeamRoster;
 
 import javax.inject.Inject;
@@ -29,7 +30,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Call<People> getPeople(int personId) {
+    public Call<PeopleDetails> getPeople(int personId) {
         return teamRepository.getPeople(personId);
     }
 }

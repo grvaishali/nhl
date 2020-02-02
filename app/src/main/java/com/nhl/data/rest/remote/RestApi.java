@@ -2,6 +2,7 @@ package com.nhl.data.rest.remote;
 
 import com.nhl.model.team.Teams;
 import com.nhl.model.team.people.People;
+import com.nhl.model.team.people.PeopleDetails;
 import com.nhl.model.team.roster.Roster;
 import com.nhl.model.team.roster.TeamRoster;
 
@@ -18,7 +19,7 @@ public interface RestApi {
     Call<TeamRoster> getTeamRoster(@Path("teamId") int teamId);
 
     @GET("people/{personId}")
-    Call<People> getPeople(@Path("personId")int personId);
+    Call<PeopleDetails> getPeople(@Path("personId")int personId);
 
 
 

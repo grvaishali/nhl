@@ -1,23 +1,39 @@
 package com.nhl.presentation.team;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.nhl.R;
+import com.nhl.databinding.ActivityTeamBinding;
 import com.nhl.domain.model.factory.TeamViewModel;
-import com.nhl.model.team.Teams;
+import com.nhl.model.team.people.People;
+import com.nhl.model.team.people.PeopleDetails;
 import com.nhl.presentation.AbstractNHLActivity;
+import com.nhl.presentation.CountryUtil;
+import com.nhl.presentation.ImageUtil;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TeamActivity extends AbstractNHLActivity<TeamViewModel> {
+
+    @BindView(R.id.country_name)
+    TextView countryName;
+    @BindView(R.id.flag_image)
+    ImageView flag;
 
     @Inject
     TeamViewModel teamViewModel;
@@ -36,22 +52,27 @@ public class TeamActivity extends AbstractNHLActivity<TeamViewModel> {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bind();
+        ButterKnife.bind(this);
        getViewModel();
-       getTeams();
+       getTeams(8471233);
     }
 
 
-    Call<Teams> teams;
+    Call<PeopleDetails> people;
 
-    public void getTeams() {
-        teams = teamViewModel.teamService.getTeam();
-        teams.enqueue(new Callback<Teams>() {
+    public void getTeams(int position) {
+        people = teamViewModel.teamService.getPeople(position);
+        people.enqueue(new Callback<PeopleDetails>() {
             @Override
             public void onResponse
-                    (Call<Teams> call, Response<Teams> response) {
+                    (Call<PeopleDetails> call, Response<PeopleDetails> response) {
                 if (response.isSuccessful()) {
-                    Teams convertedResponse;
-                    convertedResponse = (Teams) response.body();
+                    PeopleDetails people;
+                    people = (PeopleDetails) response.body();
+
+                    countryName.setText(people.getPeople().get(0).getNationality());
+                    ImageUtil.fetchJpg(flag.getContext(),"https://www.countryflags.io/"+ CountryUtil.iso3CountryCodeToIso2CountryCode(people.getPeople().get(0).getNationality()) +"/flat/64.png",flag);
 
                 } else {
                     // error response, no access to resource?
@@ -59,16 +80,16 @@ public class TeamActivity extends AbstractNHLActivity<TeamViewModel> {
             }
 
             @Override
-            public void onFailure(Call<Teams> call, Throwable t) {
-
+            public void onFailure(Call<PeopleDetails> call, Throwable t) {
+                Log.e("Person Details", "onFailure: ", t);
             }
         });
     }
 
     private void bind() {
-//        ActivityMainBindingImpl binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-//        //teamViewModel = ViewModelProviders.of(this).get(TeamViewModel.class);
-//        binding.setViewModel(teamViewModel);
+     ActivityTeamBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_team);
+        //teamViewModel = ViewModelProviders.of(this).get(TeamViewModel.class);
+        binding.setViewModel(teamViewModel);
 
     }
 
