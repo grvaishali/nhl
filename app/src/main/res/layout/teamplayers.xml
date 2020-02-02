@@ -19,11 +19,11 @@
         android:weightSum="10">
 
         <TextView
-            android:id="@+id/teamPlayer_position"
+            android:id="@+id/teamPlayer_number"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:background="@drawable/table_content_cell_bg"
             android:text="@string/teamPlayer_Position"
             android:textSize="18sp"
@@ -45,12 +45,22 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_gravity="top"
-            android:layout_weight="6"
+            android:layout_weight="3"
             android:background="@drawable/table_content_cell_bg"
             android:text="@string/playerName"
             android:textSize="18sp"
             android:gravity="center"/>
 
+        <TextView
+            android:id="@+id/teamPlayer_position"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_weight="3"
+            android:background="@drawable/table_content_cell_bg"
+            android:text="@string/teamPlayer_Position"
+            android:textSize="18sp"
+            android:gravity="center"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

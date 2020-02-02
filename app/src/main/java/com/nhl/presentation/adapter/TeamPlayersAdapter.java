@@ -41,6 +41,7 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
         int rowPos=holder.getAdapterPosition();
         TextView textViewDescription = holder.textViewDescription;
         TextView position=holder.position;
+        TextView number= holder.number;
         ImageView image=holder.image;
         CardView view = holder.parentCardView;
 
@@ -49,17 +50,24 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
             holder.image.setBackgroundResource(R.drawable.table_header_cell_bg);
             holder.textViewDescription.setBackgroundResource(R.drawable.table_header_cell_bg);
             holder.position.setBackgroundResource(R.drawable.table_header_cell_bg);
+            holder.number.setBackgroundResource(R.drawable.table_header_cell_bg);
+
+            holder.position.setText("Position");
             holder.textViewDescription.setText("Name");
+            holder.number.setText("#");
+
             holder.textViewDescription.setTextColor(ContextCompat.getColor(holder.textViewDescription.getContext(),R.color.colorPrimaryDark));
             holder.position.setTextColor(ContextCompat.getColor(holder.position.getContext(),R.color.colorPrimaryDark));
-            holder.position.setText("#");
+            holder.number.setTextColor(ContextCompat.getColor(holder.number.getContext(),R.color.colorPrimaryDark));
 
         }
         else{
-            textViewDescription.setText(rosters.get(listPosition).getPerson().getFullName());
-            position.setText(rosters.get(listPosition).getJerseyNumber());
+            Roster roster =  rosters.get(listPosition);
+            number.setText(roster.getJerseyNumber());
+            textViewDescription.setText(roster.getPerson().getFullName());
+            position.setText(roster.getPosition().getName());
             try {
-                ImageUtil.fetchJpg(image.getContext(), ("https://nhl.bamcontent.com/images/headshots/current/168x168/"+rosters.get(listPosition).getPerson().getId())+".jpg", image);
+                ImageUtil.fetchJpg(image.getContext(), ("https://nhl.bamcontent.com/images/headshots/current/168x168/"+roster.getPerson().getId())+".jpg", image);
             } catch (Exception e) {
                 Log.e("LoadPersonImage", e.getMessage(), e);
             }
@@ -84,6 +92,8 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
         ImageView image;
         @BindView(R.id.teamPlayer_position)
         TextView position;
+        @BindView(R.id.teamPlayer_number)
+        TextView number;
         @BindView(R.id.teamPlayer_card_view)
         CardView parentCardView;
 
