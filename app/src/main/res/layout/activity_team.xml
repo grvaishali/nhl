@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.nhl.domain.model.factory.TeamViewModel" />
+            type="com.nhlteam.domain.model.factory.TeamViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
