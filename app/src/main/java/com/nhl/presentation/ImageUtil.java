@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.pixplicity.sharp.Sharp;
 
 import java.io.IOException;
@@ -41,5 +42,11 @@ public class ImageUtil {
                 stream.close();
             }
         });
+    }
+
+    public static void fetchJpg(Context context, String url, final ImageView target) {
+        Glide.with(context)
+                .load(url).
+                into(target);
     }
 }

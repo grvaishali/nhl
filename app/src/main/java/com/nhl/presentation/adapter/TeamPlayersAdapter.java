@@ -1,18 +1,21 @@
 package com.nhl.presentation.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nhl.R;
-import com.nhl.model.team.roster.Person;
 import com.nhl.model.team.roster.Roster;
+import com.nhl.presentation.ImageUtil;
 
 import java.util.List;
 
@@ -22,6 +25,7 @@ import butterknife.ButterKnife;
 public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.TeamPlayerViewHolder> {
     private List<Roster> rosters;
     private Context context;
+
 
     @NonNull
     @Override
@@ -34,9 +38,35 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TeamPlayerViewHolder holder, int listPosition) {
+        int rowPos=holder.getAdapterPosition();
         TextView textViewDescription = holder.textViewDescription;
+        TextView position=holder.position;
+        ImageView image=holder.image;
         CardView view = holder.parentCardView;
-        textViewDescription.setText(rosters.get(listPosition).getPerson().getFullName());
+
+        if (rowPos == 0) {
+            // Header Cells. Main Headings appear here
+            holder.image.setBackgroundResource(R.drawable.table_header_cell_bg);
+            holder.textViewDescription.setBackgroundResource(R.drawable.table_header_cell_bg);
+            holder.position.setBackgroundResource(R.drawable.table_header_cell_bg);
+            holder.textViewDescription.setText("Name");
+            holder.textViewDescription.setTextColor(ContextCompat.getColor(holder.textViewDescription.getContext(),R.color.colorPrimaryDark));
+            holder.position.setTextColor(ContextCompat.getColor(holder.position.getContext(),R.color.colorPrimaryDark));
+            holder.position.setText("#");
+
+        }
+        else{
+            textViewDescription.setText(rosters.get(listPosition).getPerson().getFullName());
+            position.setText(rosters.get(listPosition).getJerseyNumber());
+            try {
+                ImageUtil.fetchJpg(image.getContext(), ("https://nhl.bamcontent.com/images/headshots/current/168x168/"+rosters.get(listPosition).getPerson().getId())+".jpg", image);
+            } catch (Exception e) {
+                Log.e("LoadPersonImage", e.getMessage(), e);
+            }
+
+        }
+
+
 
     }
 
@@ -50,6 +80,10 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
 
         @BindView(R.id.teamPlayer_name)
         TextView textViewDescription;
+        @BindView(R.id.teamPlayer_image)
+        ImageView image;
+        @BindView(R.id.teamPlayer_position)
+        TextView position;
         @BindView(R.id.teamPlayer_card_view)
         CardView parentCardView;
 

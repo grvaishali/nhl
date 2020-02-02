@@ -50,9 +50,10 @@
                         android:id="@+id/teamView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/colorPrimaryDark"
                         app:layoutManager="LinearLayoutManager"
-                        tools:listitem="@layout/list_teams" />
+                        tools:listitem="@layout/list_teams"
+                        android:elevation="0dp"/>
                 </RelativeLayout>
 
             </com.google.android.material.navigation.NavigationView>

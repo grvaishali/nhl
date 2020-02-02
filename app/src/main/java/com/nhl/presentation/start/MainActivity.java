@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nhl.R;
+import com.nhl.constants.NHLConstants;
 import com.nhl.databinding.ActivityMainBindingImpl;
 import com.nhl.domain.model.factory.TeamViewModel;
 import com.nhl.model.team.Teams;
@@ -59,6 +60,8 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
     @Inject
     @Named("TeamViewModel")
     ViewModelProvider.Factory factory;
+
+    int position;
 
     @Override
     public TeamViewModel getViewModel() {
@@ -102,7 +105,7 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
         teamView = (RecyclerView) findViewById(R.id.teamView);
         teamView.setHasFixedSize(true);
         getTeams();
-        getTeamPlayers();
+
     }
 
 
@@ -124,6 +127,12 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
 
     public void getTeams() {
 
+        if (getIntent().hasExtra(NHLConstants.TEAM_ID)) {
+            position = (int) getIntent().getSerializableExtra(NHLConstants.TEAM_ID);
+
+        }
+        getTeamPlayers(position);
+
         teams = teamViewModel.teamService.getTeam();
         teams.enqueue(new Callback<Teams>() {
             @Override
@@ -132,7 +141,7 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
                 if (response.isSuccessful()) {
 
                     Teams teamsResponse;
-                    teamsResponse =  response.body();
+                    teamsResponse = response.body();
                     layoutManager = new LinearLayoutManager(MainActivity.this);
                     teamView.setLayoutManager(layoutManager);
                     teamView.setItemAnimator(new DefaultItemAnimator());
@@ -154,15 +163,16 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
 
     Call<TeamRoster> teamRosterCall;
 
-    public void getTeamPlayers() {
-        teamRosterCall = teamViewModel.teamService.getTeamRoster(1);
+    public void getTeamPlayers(int position) {
+        teamRosterCall = teamViewModel.teamService.getTeamRoster(position);
 
         teamRosterCall.enqueue(new Callback<TeamRoster>() {
             @Override
             public void onResponse
                     (Call<TeamRoster> call, Response<TeamRoster> response) {
                 if (response.isSuccessful()) {
-                    TeamRoster teamRoster = response.body();;
+                    TeamRoster teamRoster = response.body();
+                    ;
                     LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
                     teamPlayerView.setLayoutManager(layoutManager);
                     teamPlayerView.setItemAnimator(new DefaultItemAnimator());

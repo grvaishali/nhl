@@ -11,14 +11,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nhl.R;
+import com.nhl.constants.NHLConstants;
 import com.nhl.model.team.Team;
 import com.nhl.presentation.ImageUtil;
+import com.nhl.presentation.navigation.ui.home.HomeFragment;
+import com.nhl.presentation.start.MainActivity;
 import com.nhl.presentation.team.TeamActivity;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +33,8 @@ import butterknife.ButterKnife;
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolder> {
     private List<Team> teams;
     private Context context;
+
+
 
     @NonNull
     @Override
@@ -48,14 +57,14 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamsViewHolde
         holder.parentCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, TeamActivity.class);
-              //  intent.putExtra(ECatalogueConstants.BRAND, brandsList.get(listPosition).getName());
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra(NHLConstants.TEAM_ID, teams.get(listPosition).getId());
                 context.startActivity(intent);
 
             }
         });
         try {
-            ImageUtil.fetchSvg(imageContext, ("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/"+teams.get(listPosition).getId())+".svg", imageViewIcon);
+            ImageUtil.fetchSvg(imageContext, ("https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/" + teams.get(listPosition).getId()) + ".svg", imageViewIcon);
         } catch (Exception e) {
             Log.e("LoadBrandImage", e.getMessage(), e);
         }
