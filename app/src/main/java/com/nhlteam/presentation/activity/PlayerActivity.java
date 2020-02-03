@@ -1,5 +1,6 @@
 package com.nhlteam.presentation.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -49,8 +50,7 @@ public class PlayerActivity extends AbstractNHLActivity<TeamViewModel> {
 
     @Override
     public TeamViewModel getViewModel() {
-        teamViewModel = ViewModelProviders.of(this, factory).get(TeamViewModel.class);
-        return teamViewModel;
+        return ViewModelProviders.of(this, factory).get(TeamViewModel.class);
     }
 
     @Override
@@ -58,8 +58,12 @@ public class PlayerActivity extends AbstractNHLActivity<TeamViewModel> {
         super.onCreate(savedInstanceState);
         bind();
         ButterKnife.bind(this);
-        getViewModel();
-        fetchPlayerDetails(8471233);
+        hideSoftKeyboard();
+        teamViewModel = getViewModel();
+        if (getIntent().hasExtra(NHLConstants.PLAYER_POSITION)) {
+            fetchPlayerDetails(Integer.parseInt(String.valueOf(getIntent().getStringExtra(NHLConstants.PLAYER_POSITION))));
+
+        }
     }
 
 
@@ -79,7 +83,7 @@ public class PlayerActivity extends AbstractNHLActivity<TeamViewModel> {
                     peopleDetails = response.body();
                     if (null != peopleDetails.getPeople() && !peopleDetails.getPeople().isEmpty()) {
                         playerCountryName.setText(peopleDetails.getPeople().get(0).getNationality());
-                        ImageUtil.fetchJpg(playerCountryFlag.getContext(), ConfigUtil.getProperty(NHLConstants.FLAG_IMAGE_BASE_URL,playerCountryFlag.getContext()) + CountryUtil.iso3CountryCodeToIso2CountryCode(peopleDetails.getPeople().get(0).getNationality()) + ConfigUtil.getProperty(NHLConstants.FLAG_IMAGE_SUFFIX,playerCountryFlag.getContext()), playerCountryFlag);
+                        ImageUtil.fetchJpg(playerCountryFlag.getContext(), ConfigUtil.getProperty(NHLConstants.FLAG_IMAGE_BASE_URL, playerCountryFlag.getContext()) + CountryUtil.iso3CountryCodeToIso2CountryCode(peopleDetails.getPeople().get(0).getNationality()) + ConfigUtil.getProperty(NHLConstants.FLAG_IMAGE_SUFFIX, playerCountryFlag.getContext()), playerCountryFlag);
                     }
                 } else {
                     if (response.errorBody() == null) throw new AssertionError();
@@ -88,7 +92,7 @@ public class PlayerActivity extends AbstractNHLActivity<TeamViewModel> {
             }
 
             @Override
-            public void onFailure(@NotNull Call<PeopleDetails> call,@NotNull Throwable t) {
+            public void onFailure(@NotNull Call<PeopleDetails> call, @NotNull Throwable t) {
                 Log.e("Person Details", "onFailure: ", t);
             }
         });

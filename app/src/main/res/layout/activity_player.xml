@@ -16,7 +16,7 @@
         <ImageView
             android:id="@+id/activity_player_imageView_flag"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="300sp"
             android:layout_gravity="center"
             android:contentDescription="@string/flag_image" />
 
@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/countryName"
-            android:textSize="18sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

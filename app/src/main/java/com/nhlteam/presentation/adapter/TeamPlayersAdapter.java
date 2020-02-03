@@ -74,6 +74,7 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
         //Attach on click listener
         teamPlayerViewHolder.playerCardView.setOnClickListener(view -> {
             Intent intent = new Intent(context, PlayerActivity.class);
+            intent.putExtra(NHLConstants.PLAYER_POSITION,String.valueOf(roster.getPerson().getId()));
             context.startActivity(intent);
 
         });

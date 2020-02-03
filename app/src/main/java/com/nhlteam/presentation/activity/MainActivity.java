@@ -93,7 +93,7 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
             PlayersFragment playersFragment = new PlayersFragment(currentTeamLiveData);
             FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_home, playersFragment);
+            fragmentTransaction.replace(R.id.fragment_home, playersFragment).addToBackStack(null);
             fragmentTransaction.commit();
             drawer.closeDrawers();
         });

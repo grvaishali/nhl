@@ -118,15 +118,12 @@ public class PlayersFragment extends AbstractNHLFragment<PlayersViewModel> {
         //Show default image and text, and hide table in case there is no team selected
         if (null == currentTeamLiveDate || null == currentTeamLiveDate.getValue()) {
             tableLayout.setVisibility(View.INVISIBLE);
-            defaultImageView.setImageDrawable(ContextCompat.getDrawable(Objects.requireNonNull(getContext()), android.R.drawable.ic_dialog_email));
-            defaultImageView.setAlpha(0.5f);
             defaultImageView.setVisibility(View.VISIBLE);
             defaultTextView.setVisibility(View.VISIBLE);
         }
         //Hide default image and text, and show table in case there is no team selected
         else {
             teamName.setText(currentTeamLiveDate.getValue().getName());
-            defaultImageView.setImageResource(android.R.color.transparent);
             defaultImageView.setVisibility(View.GONE);
             defaultTextView.setVisibility(View.GONE);
             tableLayout.setVisibility(View.VISIBLE);

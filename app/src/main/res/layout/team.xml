@@ -26,7 +26,7 @@
             android:background="@drawable/table_content_cell_bg"
             android:text="@string/header_number_text"
             android:textSize="18sp"
-
+            android:textColor="@color/colorPrimary"
             android:gravity="center"/>
 
 
@@ -49,6 +49,7 @@
             android:background="@drawable/table_content_cell_bg"
             android:text="@string/playerName"
             android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
             android:gravity="center"/>
 
         <EditText
@@ -63,6 +64,7 @@
             android:textSize="18sp"
             android:gravity="center"
             android:importantForAutofill="no"
+            android:textColor="@color/colorPrimary"
             android:inputType="text" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

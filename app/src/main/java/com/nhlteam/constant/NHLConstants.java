@@ -13,4 +13,5 @@ public class NHLConstants {
     public static final String TEAM_LOGO_SUFFIX = "teamLogoSuffix";
     public static final String FLAG_IMAGE_BASE_URL = "flagImageBaseURL";
     public static final String FLAG_IMAGE_SUFFIX = "flagImageSuffix";
+    public static final String PLAYER_POSITION= "playerPosition";
 }
