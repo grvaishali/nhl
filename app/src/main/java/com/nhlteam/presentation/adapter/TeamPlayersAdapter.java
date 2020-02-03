@@ -46,7 +46,7 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
     @Override
     public TeamPlayerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.team, parent, false);
+                .inflate(R.layout.list_players, parent, false);
         return new TeamPlayersAdapter.TeamPlayerViewHolder(view);
     }
 
@@ -88,15 +88,15 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
     }
 
     public static class TeamPlayerViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.fragment_players_textView_headerName)
+        @BindView(R.id.list_players_textView_headerName)
         TextView nameTextView;
         @BindView(R.id.team_imageView_player)
         ImageView playerImageView;
-        @BindView(R.id.fragment_players_textView_headerPosition)
+        @BindView(R.id.list_players_textView_headerPosition)
         EditText positionEditText;
-        @BindView(R.id.fragment_players_button_headerNumber)
+        @BindView(R.id.list_players_button_headerNumber)
         TextView numberTextView;
-        @BindView(R.id.teamPlayer_card_view)
+        @BindView(R.id.list_players_player_card_view)
         CardView playerCardView;
 
 

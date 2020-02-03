@@ -82,7 +82,7 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
                 R.id.nav_home)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.content_main_fragment);
+        NavController navController = Navigation.findNavController(this, R.id.fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, NHLAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         navigationDrawerTeamsRecyclerView.setHasFixedSize(true);
@@ -104,7 +104,7 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.content_main_fragment);
+        NavController navController = Navigation.findNavController(this, R.id.fragment_content_main);
         return NavigationUI.navigateUp(navController, NHLAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
