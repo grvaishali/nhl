@@ -18,4 +18,8 @@
     <string name="teamPlayer_Position">Position</string>
     <string name="countryName">Country Name</string>
     <string name="flag_image">Flag</string>
+    <string name="teamPlayer_number">#</string>
+    <string name="please_select_a_team_from_menu">Please Select a Team from Menu</string>
+    <string name="teams">Teams</string>
+    <string name="header_number_text">###</string>
 </resources>
