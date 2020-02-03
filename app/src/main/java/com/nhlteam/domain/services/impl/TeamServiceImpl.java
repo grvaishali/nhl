@@ -1,9 +1,9 @@
 package com.nhlteam.domain.services.impl;
 
 import com.nhlteam.domain.repositories.TeamRepository;
-import com.nhlteam.model.team.Teams;
-import com.nhlteam.model.team.people.PeopleDetails;
-import com.nhlteam.model.team.roster.TeamRoster;
+import com.nhlteam.data.team.Teams;
+import com.nhlteam.data.people.PeopleDetails;
+import com.nhlteam.data.roster.TeamRoster;
 
 import javax.inject.Inject;
 

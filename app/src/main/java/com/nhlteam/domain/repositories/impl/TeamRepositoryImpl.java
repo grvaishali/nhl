@@ -1,10 +1,10 @@
 package com.nhlteam.domain.repositories.impl;
 
-import com.nhlteam.data.rest.remote.RestApi;
+import com.nhlteam.rest.NHLRestService;
 import com.nhlteam.domain.repositories.TeamRepository;
-import com.nhlteam.model.team.Teams;
-import com.nhlteam.model.team.people.PeopleDetails;
-import com.nhlteam.model.team.roster.TeamRoster;
+import com.nhlteam.data.team.Teams;
+import com.nhlteam.data.people.PeopleDetails;
+import com.nhlteam.data.roster.TeamRoster;
 
 import javax.inject.Inject;
 
@@ -16,11 +16,10 @@ public class TeamRepositoryImpl implements TeamRepository {
     @Inject
     Retrofit retrofit;
 
-
-    RestApi api;
+    private NHLRestService api;
 
     @Inject
-    public TeamRepositoryImpl(RestApi api) {
+    public TeamRepositoryImpl(NHLRestService api) {
         this.api = api;
 
     }

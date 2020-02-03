@@ -7,8 +7,14 @@ import androidx.lifecycle.ViewModel;
 
 import dagger.android.support.DaggerFragment;
 
-public abstract class AbstractNHLFragment<T extends ViewModel>extends DaggerFragment {
+/**
+ * Parent fragment for dagger support
+ *
+ * @param <T>
+ */
+public abstract class AbstractNHLFragment<T extends ViewModel> extends DaggerFragment {
     private T viewModel;
+
     /**
      * @return view model instance
      */
@@ -19,7 +25,6 @@ public abstract class AbstractNHLFragment<T extends ViewModel>extends DaggerFrag
         super.onCreate(savedInstanceState);
         this.viewModel = viewModel == null ? getViewModel() : viewModel;
     }
-
 
 
 }

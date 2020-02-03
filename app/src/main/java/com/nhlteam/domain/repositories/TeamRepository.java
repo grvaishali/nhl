@@ -1,8 +1,8 @@
 package com.nhlteam.domain.repositories;
 
-import com.nhlteam.model.team.Teams;
-import com.nhlteam.model.team.people.PeopleDetails;
-import com.nhlteam.model.team.roster.TeamRoster;
+import com.nhlteam.data.team.Teams;
+import com.nhlteam.data.people.PeopleDetails;
+import com.nhlteam.data.roster.TeamRoster;
 
 import retrofit2.Call;
 
