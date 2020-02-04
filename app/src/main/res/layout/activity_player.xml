@@ -11,12 +11,13 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
 
         <ImageView
             android:id="@+id/activity_player_imageView_flag"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/player_flag_image_height"
             android:layout_gravity="center"
             android:contentDescription="@string/flag_image" />
 
@@ -26,7 +27,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/countryName"
-            android:textSize="18sp" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/text_size_highlight" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
