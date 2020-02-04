@@ -1,10 +1,14 @@
 package com.nhlteam.presentation.activity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModel;
+
+import com.nhlteam.R;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -24,6 +28,7 @@ public abstract class AbstractNHLActivity<T extends ViewModel> extends DaggerApp
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         this.viewModel = viewModel == null ? getViewModel() : viewModel;
     }
@@ -36,4 +41,8 @@ public abstract class AbstractNHLActivity<T extends ViewModel> extends DaggerApp
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
 }
