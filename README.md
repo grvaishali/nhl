@@ -45,7 +45,7 @@ NHL application that displays the NHL teams, players for a team and the national
 
 ##### Filter Players List by Position 
 
-<img src= https://github.com/grvaishali/nhl/blob/master/demo/Filter.PNG?raw=true" width="200" height="400">
+<img src= "https://github.com/grvaishali/nhl/blob/master/demo/Filter.PNG?raw=true" width="200" height="400">
 
 ##### Player Nationality
 
