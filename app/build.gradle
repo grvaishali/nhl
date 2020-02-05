@@ -54,7 +54,8 @@ dependencies {
     //For Testing
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.10.19'
     testImplementation 'org.robolectric:robolectric:4.3'
@@ -65,15 +66,6 @@ dependencies {
     // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.1'
-
-//    // Espresso dependencies
-//    androidTestImplementation "com.android.support.test.espresso:espresso-core:$project.espresso"
-//    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$project.espresso"
-//    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$project.espresso"
-//    androidTestImplementation "com.android.support.test.espresso:espresso-accessibility:$project.espresso"
-//    androidTestImplementation "com.android.support.test.espresso:espresso-web:$project.espresso"
-//    androidTestImplementation "com.android.support.test.espresso.idling:idling-concurrent:$project.espresso"
-//    androidTestImplementation "com.android.support.test.espresso:espresso-idling-resource:$project.espress"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$project.lifecycle_version"

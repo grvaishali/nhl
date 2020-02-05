@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.RemoteException;
 import android.util.Log;
+import android.view.Gravity;
 
+import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.filters.LargeTest;
 import androidx.test.filters.RequiresDevice;
 import androidx.test.filters.SdkSuppress;
@@ -19,11 +22,18 @@ import androidx.test.uiautomator.UiSelector;
 
 import com.nhlteam.presentation.activity.MainActivity;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.contrib.DrawerMatchers.isClosed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
@@ -32,7 +42,11 @@ public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-
+    @Before
+    public void yourSetUPFragment() {
+        activityTestRule.getActivity()
+                .getSupportFragmentManager().beginTransaction();
+    }
 
     @Test
     @RequiresDevice
@@ -63,6 +77,7 @@ public class MainActivityTest {
     public void testSmallTest() {
         Log.d("Test Filters", "this is a small test");
         Activity activity = activityTestRule.getActivity();
+        onView(withId(R.id.fragment_players_textView_default)).check(matches(withText("Please Select a Team from Menu")));
         assertNotNull("MainActivity is not available", activity);
     }
 
@@ -76,6 +91,7 @@ public class MainActivityTest {
 
     @Test
     public void testPressBackButton() {
+
         UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack();
     }
 
@@ -99,6 +115,19 @@ public class MainActivityTest {
         editTextWidget.setText("this is new text");
 
 
+    }
+
+    @Test
+    public void clickOnYourNavigationItem_ShowsYourScreen() {
+        // Open Drawer to click on navigation.
+        onView(withId(R.id.drawer_layout))
+                .check(matches(isClosed(Gravity.LEFT))) // Left Drawer should be closed.
+                .perform(DrawerActions.open()); // Open Drawer
+
+        // Start the screen of your activity.
+        onView(withId(R.id.activity_main_navigationView));
+        onView(withId(R.id.activity_main_navigation_recyclerView_teams)).perform(RecyclerViewActions.actionOnItemAtPosition(2, click()));
+        ;
     }
 
 }

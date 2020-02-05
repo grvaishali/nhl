@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,6 +31,7 @@ import com.nhlteam.presentation.adapter.TeamPlayersAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -189,10 +189,11 @@ public class PlayersFragment extends AbstractNHLFragment<PlayersViewModel> {
      * Attach search filter on table
      */
     private void searchPosition() {
-        searchFromTeamPlayerPosition.setHint(NHLConstants.ENTER_POSITION);
+        String searchPositionText = Locale.getDefault().getDisplayLanguage().toLowerCase().contains(NHLConstants.LOCALE_FRENCH) ? NHLConstants.ENTER_POSITION_FR : NHLConstants.ENTER_POSITION_EN;
+        searchFromTeamPlayerPosition.setHint(searchPositionText);
         searchFromTeamPlayerPosition.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
-                searchFromTeamPlayerPosition.setHint(NHLConstants.ENTER_POSITION);
+                searchFromTeamPlayerPosition.setHint(searchPositionText);
             } else {
                 searchFromTeamPlayerPosition.setHint("");
             }
