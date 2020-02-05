@@ -8,6 +8,7 @@ NHL application that displays the NHL teams, players for a team and the national
   - Provides sort options for playes based on number and name
   - Provides filter for players based on position
   - Displays flag and nationality for a player
+  -Supports both phones and tablets
 
 ## Technical Aspects
   - Based on MVVM architecture
