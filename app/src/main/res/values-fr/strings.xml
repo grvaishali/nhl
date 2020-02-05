@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">NHL</string>
+    <string name="navigation_drawer_open">Ouvrir le tiroir de navigation</string>
+    <string name="navigation_drawer_close">Fermer le tiroir de navigation</string>
+    <string name="nav_header_title">NHL ÉQUIPES</string>
+    <string name="nav_header_subtitle"></string>
+    <string name="nav_header_desc">En-tête de navigation</string>
+    <string name="action_settings">Réglages</string>
+
+    <string name="menu_home">NHL</string>
+    <string name="menu_gallery">Galerie</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Diaporama</string>
+    <string name="menu_share">Partager</string>
+    <string name="menu_send">Envoyer</string>
+    <string name="image">Image</string>
+    <string name="playerName">Nom</string>
+    <string name="teamPlayer_Position">Position</string>
+    <string name="countryName">Nom du pays</string>
+    <string name="flag_image">Drapeau</string>
+    <string name="teamPlayer_number">#</string>
+    <string name="please_select_a_team_from_menu">Veuillez sélectionner une équipe dans le menu</string>
+    <string name="teams">Équipes</string>
+    <string name="header_number_text">###</string>
+</resources>

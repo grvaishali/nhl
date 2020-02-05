@@ -8,7 +8,8 @@ NHL application that displays the NHL teams, players for a team and the national
   - Provides sort options for playes based on number and name
   - Provides filter for players based on position
   - Displays flag and nationality for a player
-  -Supports both phones and tablets
+  - Supports both phones and tablets
+  - Supports English and French languages
 
 ## Technical Aspects
   - Based on MVVM architecture
@@ -26,31 +27,31 @@ NHL application that displays the NHL teams, players for a team and the national
  
 ## Demo
 
-<img src="https://github.com/grvaishali/nhl/blob/master/demo/Demo.gif?raw=true" width="200" height="400" />
+<img src="https://github.com/grvaishali/nhl/blob/master/demo/Demo.gif?raw=true" width="200" height="400" hspace="20"> <img src="https://github.com/grvaishali/nhl/blob/master/demo/Demo_FR.gif?raw=true" width="200" height="400">
 
 ##### Home
 
-<img src= "https://github.com/grvaishali/nhl/blob/master/demo/Home.PNG?raw=true" width="200" height="400">
+<img src= "https://github.com/grvaishali/nhl/blob/master/demo/Home.PNG?raw=true" width="200" height="400" hspace="20"> <img src= "https://github.com/grvaishali/nhl/blob/master/demo/Home_FR.PNG?raw=true" width="200" height="400">
 
 ##### Teams List
 
-<img src= "https://github.com/grvaishali/nhl/blob/master/demo/TeamList.PNG?raw=true" width="200" height="400">
+<img src= "https://github.com/grvaishali/nhl/blob/master/demo/TeamList.PNG?raw=true" width="200" height="400" hspace="20"> <img src= "https://github.com/grvaishali/nhl/blob/master/demo/TeamList_FR.PNG?raw=true" width="200" height="400">
 
 ##### Players List
 
-<img src= "https://github.com/grvaishali/nhl/blob/master/demo/PlayerList.PNG?raw=true" width="200" height="400">
+<img src= "https://github.com/grvaishali/nhl/blob/master/demo/PlayerList.PNG?raw=true" width="200" height="400" hspace="20"> <img src= "https://github.com/grvaishali/nhl/blob/master/demo/PlayerList_FR.PNG?raw=true" width="200" height="400">
 
 ##### Sorted Players List on Number
 
-<img src= "https://github.com/grvaishali/nhl/blob/master/demo/Sort.PNG?raw=true" width="200" height="400">
+<img src= "https://github.com/grvaishali/nhl/blob/master/demo/Sort.PNG?raw=true" width="200" height="400" hspace="20"> <img src= "https://github.com/grvaishali/nhl/blob/master/demo/Sort_FR.PNG?raw=true" width="200" height="400">
 
 ##### Filter Players List by Position 
 
-<img src= "https://github.com/grvaishali/nhl/blob/master/demo/Filter.PNG?raw=true" width="200" height="400">
+<img src= "https://github.com/grvaishali/nhl/blob/master/demo/Filter.PNG?raw=true" width="200" height="400" hspace="20"> <img src= "https://github.com/grvaishali/nhl/blob/master/demo/Filter_FR.PNG?raw=true" width="200" height="400">
 
 ##### Player Nationality
 
-<img src= "https://github.com/grvaishali/nhl/blob/master/demo/PlayerCountry.PNG?raw=true" width="200" height="400">
+<img src= "https://github.com/grvaishali/nhl/blob/master/demo/PlayerCountry.PNG?raw=true" width="200" height="400" hspace="20"> <img src= "https://github.com/grvaishali/nhl/blob/master/demo/PlayerCountry.PNG?raw=true" width="200" height="400">
 
   
 
