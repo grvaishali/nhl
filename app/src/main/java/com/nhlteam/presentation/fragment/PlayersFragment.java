@@ -3,7 +3,6 @@ package com.nhlteam.presentation.fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +41,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 /**
  * Fragment to display players list
@@ -153,13 +153,13 @@ public class PlayersFragment extends AbstractNHLFragment<PlayersViewModel> {
                     teamPlayersRecyclerView.setAdapter(teamPlayersAdapter);
                 } else {
                     if (response.errorBody() == null) throw new AssertionError();
-                    Log.e("Team Players Call", response.errorBody().toString(), null);
+                    Timber.e("Team Players Call", response.errorBody().toString(), null);
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<TeamRoster> call, @NotNull Throwable t) {
-                Log.e("Team Players Call", t.getMessage(), t);
+                Timber.e("Team Players Call", t.getMessage(), t);
             }
 
         });

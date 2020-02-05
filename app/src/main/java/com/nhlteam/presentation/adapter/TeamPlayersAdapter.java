@@ -2,7 +2,6 @@ package com.nhlteam.presentation.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * Adapter to hold and display the list of players.
@@ -68,7 +68,7 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
         try {
             ImageUtil.fetchJpg(playerImageView.getContext(), (ConfigUtil.getProperty(NHLConstants.PLAYER_IMAGE_BASE_URL, playerImageView.getContext()) + roster.getPerson().getId()) + ConfigUtil.getProperty(NHLConstants.PLAYER_IMAGE_SUFFIX, playerImageView.getContext()), playerImageView);
         } catch (Exception e) {
-            Log.e("LoadPersonImage", e.getMessage(), e);
+            Timber.e("LoadPersonImage", e.getMessage(), e);
         }
 
         //Attach on click listener

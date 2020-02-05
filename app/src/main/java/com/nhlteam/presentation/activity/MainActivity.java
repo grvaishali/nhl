@@ -1,7 +1,6 @@
 package com.nhlteam.presentation.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
@@ -41,6 +40,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 /**
  * Main activity for the application
@@ -127,13 +127,13 @@ public class MainActivity extends AbstractNHLActivity<TeamViewModel> {
                     TeamsAdapter teamsAdapter = new TeamsAdapter(Objects.requireNonNull(teamsResponse).getTeams(), currentTeamLiveData, MainActivity.this);
                     navigationDrawerTeamsRecyclerView.setAdapter(teamsAdapter);
                 } else {
-                    Log.e("Get Teams", Objects.requireNonNull(response.errorBody()).toString(), null);
+                    Timber.e("Get Teams", Objects.requireNonNull(response.errorBody()).toString(), null);
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<Teams> call, @NotNull Throwable t) {
-                Log.e("Get Teams", "onFailure: ", t);
+                Timber.e("Get Teams", "onFailure: ", t);
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.nhlteam.presentation.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * Adapter to hold and display the list of teams.
@@ -69,7 +69,7 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.TeamsViewHol
         try {
             ImageUtil.fetchSvg(teamLogoImageContext, (ConfigUtil.getProperty(NHLConstants.TEAM_LOGO_BASE_URL,teamLogoImageContext) + teams.get(listPosition).getId()) + ConfigUtil.getProperty(NHLConstants.TEAM_LOGO_SUFFIX,teamLogoImageContext), teamLogoImage);
         } catch (Exception e) {
-            Log.e("LoadTeamLogo", e.getMessage(), e);
+            Timber.e("LoadTeamLogo", e.getMessage(), e);
         }
 
     }
