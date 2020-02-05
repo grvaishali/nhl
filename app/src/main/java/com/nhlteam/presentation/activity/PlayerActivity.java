@@ -1,8 +1,6 @@
 package com.nhlteam.presentation.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,11 +10,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.nhlteam.R;
-
 import com.nhlteam.constant.NHLConstants;
+import com.nhlteam.data.people.PeopleDetails;
 import com.nhlteam.databinding.ActivityPlayerBinding;
 import com.nhlteam.domain.viewmodel.TeamViewModel;
-import com.nhlteam.data.people.PeopleDetails;
 import com.nhlteam.util.ConfigUtil;
 import com.nhlteam.util.CountryUtil;
 import com.nhlteam.util.ImageUtil;
@@ -31,6 +28,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 /**
  * Player country details activity
@@ -87,13 +85,13 @@ public class PlayerActivity extends AbstractNHLActivity<TeamViewModel> {
                     }
                 } else {
                     if (response.errorBody() == null) throw new AssertionError();
-                    Log.e("Person Details", response.errorBody().toString(), null);
+                    Timber.e("Person Details", response.errorBody().toString(), null);
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<PeopleDetails> call, @NotNull Throwable t) {
-                Log.e("Person Details", "onFailure: ", t);
+                Timber.e("Person Details", "onFailure: ", t);
             }
         });
     }

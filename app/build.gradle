@@ -9,7 +9,7 @@ project.ext {
     lifecycle_version = "2.1.0"
     dagger_version = "2.16"
     butterKnife_version = "10.2.1"
-    espresso_version="3.1.0"
+    espresso_version = "3.1.0"
 }
 android {
     compileSdkVersion 29
@@ -22,6 +22,7 @@ android {
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
     testOptions {
         unitTests.includeAndroidResources = true
@@ -66,6 +67,17 @@ dependencies {
     // AndroidJUnitRunner and JUnit Rules
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.1'
+
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:2.6.3'
+
+    //Roboelectric
+    testImplementation 'org.robolectric:robolectric:4.3'
+
+    def fragment_version = "1.2.0"
+    // ...
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$project.lifecycle_version"

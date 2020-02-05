@@ -6,6 +6,7 @@ import com.nhlteam.domain.services.impl.TeamService;
 
 import javax.inject.Inject;
 
+
 public class TeamViewModel extends ViewModel {
 
     public TeamService teamService;

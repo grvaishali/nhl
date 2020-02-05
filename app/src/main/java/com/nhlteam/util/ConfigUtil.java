@@ -2,13 +2,14 @@ package com.nhlteam.util;
 
 import android.content.Context;
 import android.content.res.AssetManager;
-import android.util.Log;
 
 import com.nhlteam.constant.NHLConstants;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import timber.log.Timber;
 
 /**
  * Reads the property from configuration file
@@ -31,7 +32,7 @@ public class ConfigUtil {
             properties.load(inputStream);
             return properties.getProperty(key);
         } catch (IOException ioe) {
-            Log.e("Config properties", "getProperty: ", ioe);
+            Timber.e("Config properties", "getProperty: ", ioe);
             return null;
         }
 
