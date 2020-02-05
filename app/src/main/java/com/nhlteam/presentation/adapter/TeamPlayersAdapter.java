@@ -150,4 +150,8 @@ public class TeamPlayersAdapter extends RecyclerView.Adapter<TeamPlayersAdapter.
         modifiedRosters = rosters.stream().filter(roster -> roster.getPosition().getName().toLowerCase().contains(filterTerm.toLowerCase())).collect(Collectors.toList());
         notifyDataSetChanged();
     }
+
+    public List<Roster> getModifiedRosters() {
+        return modifiedRosters;
+    }
 }

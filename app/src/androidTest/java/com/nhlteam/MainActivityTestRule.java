@@ -42,5 +42,6 @@ public class MainActivityTestRule<A extends Activity> extends ActivityTestRule<A
         return super.launchActivity(startIntent);
     }
 
+
 }
 
